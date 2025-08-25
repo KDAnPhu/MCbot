@@ -4,7 +4,7 @@ function createBot() {
   const bot = mineflayer.createBot({
     host: 'adventurecraftsmp.aternos.me',
     port: 36410,
-    username: 'AFK_Bot',
+    username: 'AFKBot',
     version: '1.21'
   });
 
@@ -25,12 +25,11 @@ function createBot() {
     console.log('❌ Lỗi:', err.message);
   });
 
-  bot.on('end', () => {
-    console.log('🔁 Bot bị disconnect, thử lại sau 10s...');
-    setTimeout(createBot, 10000);
-  });
+  // ❌ Xoá hoặc comment phần auto reconnect đi
+  // bot.on('end', () => {
+  //   console.log('🔁 Bot bị disconnect, thử lại sau 10s...');
+  //   setTimeout(createBot, 10000);
+  // });
 }
 
 createBot();
-
-
