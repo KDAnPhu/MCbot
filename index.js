@@ -4,8 +4,8 @@ function createBot() {
   const bot = mineflayer.createBot({
     host: 'svVanillaSMP.aternos.me',
     port: 57635,
-    username: 'AFK_Bot_' + Math.floor(Math.random() * 1000),
-    version: '1.21.1'
+    username: 'AFK_Bot',
+    version: '1.21'
   });
 
   bot.on('spawn', () => {
@@ -32,3 +32,4 @@ function createBot() {
 }
 
 createBot();
+
