@@ -1,3 +1,19 @@
+const express = require('express');
+const app = express();
+
+// Lấy port từ môi trường (Render cung cấp), nếu không có thì mặc định 3000
+const PORT = process.env.PORT || 3000;
+
+// Tạo route chính
+app.get('/', (req, res) => {
+  res.send('Bot is running! ✅');
+});
+
+// Bắt đầu lắng nghe port
+app.listen(PORT, () => {
+  console.log(`HTTP server listening on port ${PORT}`);
+});
+
 const mineflayer = require('mineflayer');
 
 function createBot() {
@@ -33,4 +49,5 @@ function createBot() {
 }
 
 createBot();
+
 
