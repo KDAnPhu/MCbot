@@ -1,19 +1,3 @@
-const express = require('express');
-const app = express();
-
-// Lấy port từ môi trường (Render cung cấp), nếu không có thì mặc định 3000
-const PORT = process.env.PORT || 3000;
-
-// Tạo route chính
-app.get('/', (req, res) => {
-  res.send('Bot is running! ✅');
-});
-
-// Bắt đầu lắng nghe port
-app.listen(PORT, () => {
-  console.log(`HTTP server listening on port ${PORT}`);
-});
-
 const mineflayer = require('mineflayer');
 
 function createBot() {
@@ -26,28 +10,26 @@ function createBot() {
 
   bot.on('spawn', () => {
     console.log('✅ Bot đã vào server!');
-    
-    // Nếu cần đăng nhập:
-    // bot.chat('/login your_password');
 
-    // Chống AFK kick
+    // Di chuyển ngẫu nhiên mỗi giây
     setInterval(() => {
-      bot.setControlState('jump', true);
-      setTimeout(() => bot.setControlState('jump', false), 500);
-    }, 30000);
+      const directions = ['forward', 'back', 'left', 'right'];
+      // Tắt hết các hướng trước
+      directions.forEach(dir => bot.setControlState(dir, false));
+
+      // Chọn ngẫu nhiên 1 hướng để đi
+      const randomDir = directions[Math.floor(Math.random() * directions.length)];
+      bot.setControlState(randomDir, true);
+    }, 1000);
   });
 
   bot.on('error', err => {
     console.log('❌ Lỗi:', err.message);
   });
 
-  // ❌ Xoá hoặc comment phần auto reconnect đi
-  // bot.on('end', () => {
-  //   console.log('🔁 Bot bị disconnect, thử lại sau 10s...');
-  //   setTimeout(createBot, 10000);
-  // });
+  bot.on('end', () => {
+    console.log('🔌 Bot đã rời server.');
+  });
 }
 
 createBot();
-
-
